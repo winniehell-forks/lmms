@@ -41,3 +41,14 @@ ToolButton::ToolButton( const QPixmap & _pixmap, const QString & _tooltip,
 	ToolTip::add( this, _tooltip );
 	setIcon( _pixmap );
 }
+
+
+
+
+
+ToolButton::ToolButton(QAction* _action, QWidget * _parent) :
+	QToolButton(_parent)
+{
+	setDefaultAction(_action);
+	ToolTip::add( this, _action->toolTip() );
+}

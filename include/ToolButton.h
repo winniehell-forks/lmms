@@ -26,8 +26,9 @@
 #ifndef TOOL_BUTTON_H
 #define TOOL_BUTTON_H
 
-#include <QToolButton>
+#include <QAction>
 #include <QColor>
+#include <QToolButton>
 
 
 class ToolButton : public QToolButton
@@ -37,6 +38,7 @@ public:
 	ToolButton(const QPixmap & _pixmap, const QString & _tooltip,
 			QObject * _receiver=nullptr, const char * _slot=nullptr,
 			QWidget * _parent=nullptr);
+	explicit ToolButton(QAction* _action, QWidget * _parent = nullptr);
 
 	inline ToolButton(QWidget * _parent) :
 		QToolButton(_parent)
