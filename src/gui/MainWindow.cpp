@@ -51,6 +51,7 @@
 #include "GuiApplication.h"
 #include "ImportFilter.h"
 #include "NewProjectAction.h"
+#include "OpenProjectAction.h"
 #include "PianoRoll.h"
 #include "PluginBrowser.h"
 #include "PluginFactory.h"
@@ -278,10 +279,7 @@ void MainWindow::finalize()
 	auto templates_menu = new TemplatesMenu( this );
 	project_menu->addMenu(templates_menu);
 
-	project_menu->addAction( embed::getIconPixmap( "project_open" ),
-					tr( "&Open..." ),
-					this, SLOT( openProject() ),
-					QKeySequence::Open );
+	project_menu->addAction(new OpenProjectAction(QKeySequence::Open));
 
 	project_menu->addMenu(new RecentProjectsMenu(this));
 
@@ -416,11 +414,7 @@ void MainWindow::finalize()
 	project_new_from_template->setMenu( templates_menu );
 	project_new_from_template->setPopupMode( ToolButton::InstantPopup );
 
-	ToolButton * project_open = new ToolButton(
-					embed::getIconPixmap( "project_open" ),
-					tr( "Open existing project" ),
-					this, SLOT( openProject() ),
-								m_toolBar );
+	auto project_open = new ToolButton(new OpenProjectAction(), m_toolBar );
 
 
 	ToolButton * project_open_recent = new ToolButton(
@@ -778,30 +772,6 @@ void MainWindow::restoreWidgetState( QWidget * _w, const QDomElement & _de )
 
 void MainWindow::emptySlot()
 {
-}
-
-
-
-
-void MainWindow::openProject()
-{
-	if( mayChangeProject(false) )
-	{
-		FileDialog ofd( this, tr( "Open Project" ), "", tr( "LMMS (*.mmp *.mmpz)" ) );
-
-		ofd.setDirectory( ConfigManager::inst()->userProjectsDir() );
-		ofd.setFileMode( FileDialog::ExistingFiles );
-		if( ofd.exec () == QDialog::Accepted &&
-						!ofd.selectedFiles().isEmpty() )
-		{
-			Song *song = Engine::getSong();
-
-			song->stop();
-			setCursor( Qt::WaitCursor );
-			song->loadProject( ofd.selectedFiles()[0] );
-			setCursor( Qt::ArrowCursor );
-		}
-	}
 }
 
 

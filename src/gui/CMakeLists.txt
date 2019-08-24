@@ -35,6 +35,7 @@ SET(LMMS_SRCS
 	gui/TrackContainerView.cpp
 
 	gui/actions/NewProjectAction.cpp
+	gui/actions/OpenProjectAction.cpp
 
 	gui/dialogs/FileDialog.cpp
 	gui/dialogs/VersionedSaveDialog.cpp

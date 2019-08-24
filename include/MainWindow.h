@@ -147,7 +147,6 @@ public slots:
 	void resetWindowTitle();
 
 	void emptySlot();
-	void openProject();
 	bool saveProject();
 	bool saveProjectAs();
 	bool saveProjectAsNewVersion();
