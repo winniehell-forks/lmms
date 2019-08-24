@@ -50,6 +50,7 @@
 #include "FxMixerView.h"
 #include "GuiApplication.h"
 #include "ImportFilter.h"
+#include "NewProjectAction.h"
 #include "PianoRoll.h"
 #include "PluginBrowser.h"
 #include "PluginFactory.h"
@@ -272,10 +273,7 @@ void MainWindow::finalize()
 	// project-popup-menu
 	QMenu * project_menu = new QMenu( this );
 	menuBar()->addMenu( project_menu )->setText( tr( "&File" ) );
-	project_menu->addAction( embed::getIconPixmap( "project_new" ),
-					tr( "&New" ),
-					this, SLOT( createNewProject() ),
-					QKeySequence::New );
+	project_menu->addAction(new NewProjectAction(QKeySequence::New));
 
 	auto templates_menu = new TemplatesMenu( this );
 	project_menu->addMenu(templates_menu);
@@ -408,11 +406,7 @@ void MainWindow::finalize()
 				  this, SLOT( aboutLMMS() ) );
 
 	// create tool-buttons
-	ToolButton * project_new = new ToolButton(
-					embed::getIconPixmap( "project_new" ),
-					tr( "Create new project" ),
-					this, SLOT( createNewProject() ),
-							m_toolBar );
+	auto project_new = new ToolButton(new NewProjectAction(), m_toolBar);
 
 	ToolButton * project_new_from_template = new ToolButton(
 			embed::getIconPixmap( "project_new_from_template" ),
@@ -784,16 +778,6 @@ void MainWindow::restoreWidgetState( QWidget * _w, const QDomElement & _de )
 
 void MainWindow::emptySlot()
 {
-}
-
-
-
-void MainWindow::createNewProject()
-{
-	if( mayChangeProject(true) )
-	{
-		Engine::getSong()->createNewProject();
-	}
 }
 
 
