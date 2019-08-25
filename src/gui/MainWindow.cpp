@@ -61,6 +61,7 @@
 #include "ProjectRenderer.h"
 #include "RecentProjectsMenu.h"
 #include "RemotePlugin.h"
+#include "SaveProjectAction.h"
 #include "SetupDialog.h"
 #include "SideBar.h"
 #include "SongEditor.h"
@@ -283,10 +284,7 @@ void MainWindow::finalize()
 
 	project_menu->addMenu(new RecentProjectsMenu(this));
 
-	project_menu->addAction( embed::getIconPixmap( "project_save" ),
-					tr( "&Save" ),
-					this, SLOT( saveProject() ),
-					QKeySequence::Save );
+	project_menu->addAction(new SaveProjectAction(QKeySequence::Save));
 	project_menu->addAction( embed::getIconPixmap( "project_saveas" ),
 					tr( "Save &As..." ),
 					this, SLOT( saveProjectAs() ),
@@ -424,11 +422,7 @@ void MainWindow::finalize()
 	project_open_recent->setMenu( new RecentProjectsMenu(this) );
 	project_open_recent->setPopupMode( ToolButton::InstantPopup );
 
-	ToolButton * project_save = new ToolButton(
-					embed::getIconPixmap( "project_save" ),
-					tr( "Save current project" ),
-					this, SLOT( saveProject() ),
-								m_toolBar );
+	auto project_save = new ToolButton( new SaveProjectAction(), m_toolBar );
 
 
 	ToolButton * project_export = new ToolButton(

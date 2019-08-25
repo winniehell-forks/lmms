@@ -36,6 +36,7 @@ SET(LMMS_SRCS
 
 	gui/actions/NewProjectAction.cpp
 	gui/actions/OpenProjectAction.cpp
+	gui/actions/SaveProjectAction.cpp
 
 	gui/dialogs/FileDialog.cpp
 	gui/dialogs/VersionedSaveDialog.cpp
